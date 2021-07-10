@@ -1,0 +1,11 @@
+.vditor-reset h1{
+    font-size: 30px;
+}
+
+.vditor-reset h1, .vditor-reset h2{
+    border-bottom: none !important;
+}
+
+.vditor-speech {
+    display: none;
+}
