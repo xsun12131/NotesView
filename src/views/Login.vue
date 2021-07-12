@@ -48,36 +48,51 @@
         <a href="#/">返回首页</a>
       </p>
     </div>
+    <Dialog
+      v-model="sendVal"
+      type="reminder"
+      title="提示"
+      content="登录成功"
+    ></Dialog>
   </div>
 </template>
 <script scoped>
 import { login } from "@/api/user.js";
-import { setStore, getStore, removeStore} from "@/utils/commonUtils.js";
+import { setStore, getStore, removeStore } from "@/utils/commonUtils.js";
+import Dialog from "@/components/common/Dialog.vue";
 
 export default {
   name: "Login",
+  components: {
+    Dialog,
+  },
   data() {
     return {
       user: {
         username: getStore("username"),
         password: getStore("password"),
       },
-      rememberCheck: getStore("rememberCheck")
+      rememberCheck: getStore("rememberCheck"),
+      sendVal: false,
     };
   },
   methods: {
     userLogin() {
       login(this.user).then(() => {
-        if(this.rememberCheck) {
-          setStore("username", this.user.username)
-          setStore("password", this.user.password)
+        this.openMask();
+        if (this.rememberCheck) {
+          setStore("username", this.user.username);
+          setStore("password", this.user.password);
           setStore("rememberCheck", this.rememberCheck);
         } else {
-          removeStore("username")
-          removeStore("password")
+          removeStore("username");
+          removeStore("password");
           removeStore("rememberCheck");
         }
       });
+    },
+    openMask() {
+      this.sendVal = true;
     },
   },
 };

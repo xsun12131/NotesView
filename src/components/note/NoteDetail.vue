@@ -1,5 +1,5 @@
 <template>
-  <div class="noteDetail">
+  <div class="noteDetail w-100">
     <h1 class="title">{{ this.title }}</h1>
     <div class="information"></div>
     <div class="content markdown" id="content"></div>

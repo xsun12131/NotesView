@@ -1,6 +1,6 @@
 <template>
   <div
-    class="noteList"
+    class="noteList w-100"
     v-infinite-scroll="loadMore"
     infinite-scroll-disabled="busy"
     infinite-scroll-distance="10"

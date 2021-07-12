@@ -25,7 +25,7 @@ export default {
   name: "Action",
   data() {
     return {
-      isShow:getStore("isLogin")
+      isShow:false
     }
   },
   created() {
@@ -41,6 +41,11 @@ export default {
       });
     }
   },
+  watch: {
+    "$route.path": function(path) {
+      this.isShow = getStore("isLogin") && path === "/note/noteDetail"
+    }
+  }
 };
 </script>
 <style scoped>

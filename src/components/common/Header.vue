@@ -27,7 +27,9 @@
           class="input"
           type="text"
         />
-        <button type="submit" class="submit" @click="searchNote()">Search</button>
+        <button type="submit" class="submit" @click="searchNote()">
+          Search
+        </button>
       </div>
       <svg
         class="search_icon"
@@ -82,6 +84,11 @@ export default {
       isLogin: getStore("isLogin"),
     };
   },
+  mounted() {
+    window.addEventListener("setItemEvent", (e) => {
+      console.log(e.newValue);
+    });
+  },
   created() {
     this.checkLogin();
   },
@@ -93,7 +100,7 @@ export default {
       this.isChoose = !this.isChoose;
     },
     searchNote() {
-      if(this.searchDto.query) {
+      if (this.searchDto.query) {
         search(this.searchDto).then((data) => {
           console.log(data);
         });

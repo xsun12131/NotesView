@@ -7,31 +7,34 @@
     <div>
       <button class="save" @click="saveNote()">保存</button>
     </div>
-    <div id="vditor"></div>
+    <div id="vditor" class="vditor"></div>
+    <Dialog
+      v-model="sendVal"
+      type="reminder"
+      title="提示"
+      content="保存成功"
+    ></Dialog>
   </div>
 </template>
 <script>
 import Vditor from "vditor";
 import "vditor/dist/index.css";
-import "@/assets/css/markdown.css";
 import { save } from "@/api/note.js";
 import { fetchDataById } from "@/api/note";
+import Dialog from "@/components/common/Dialog.vue";
 
 export default {
   name: "NoteEditor",
+  components: {
+    Dialog,
+  },
   data() {
     return {
       id: "",
       title: "",
       contentEditor: "",
+      sendVal: false,
     };
-  },
-  created() {
-    if (this.$route.query && this.$route.query.id) {
-      // vue从路径中获取参数 此处参数名为id
-      const id = this.$route.query.id;
-      this.getNoteDetail(id);
-    }
   },
   methods: {
     saveNote() {
@@ -41,6 +44,7 @@ export default {
       note.content = this.contentEditor.getValue();
       save(note).then((data) => {
         this.id = data.id;
+        this.sendVal = true;
       });
     },
     getNoteDetail: function (id) {
@@ -53,19 +57,26 @@ export default {
   },
   mounted() {
     this.contentEditor = new Vditor("vditor", {
-      height: 360,
       toolbarConfig: {
         pin: true,
       },
       cache: {
         enable: false,
       },
-      after: () => {},
+      after: () => {
+        if (this.$route.query && this.$route.query.id) {
+          // vue从路径中获取参数 此处参数名为id
+          const id = this.$route.query.id;
+          this.getNoteDetail(id);
+        }
+      },
     });
   },
 };
 </script>
 <style scoped>
+@import "../../assets/css/markdown.css";
+
 .note-editor {
   height: 100%;
   width: 100%;
@@ -87,7 +98,7 @@ export default {
   transition: color 0.35s;
 }
 
-#vidtor {
+.vditor {
   height: 100%;
 }
 </style>

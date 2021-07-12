@@ -15,7 +15,7 @@ export function currentUserSimple() {
         url: '/user/currentUserSimple',
         method: 'get',
     }).then((data) => {
-        if (data.code == 200) {
+        if (data.username) {
             window.localStorage.setItem("isLogin", true);
         } else {
             window.localStorage.setItem("isLogin", false);
