@@ -18,7 +18,7 @@
 </template>
 <script>
 import Vditor from "vditor";
-import "vditor/dist/index.css";
+import "@/assets/css/vditor.css";
 import { save } from "@/api/note.js";
 import { fetchDataById } from "@/api/note";
 import Dialog from "@/components/common/Dialog.vue";
@@ -78,10 +78,8 @@ export default {
 @import "../../assets/css/markdown.css";
 
 .note-editor {
-  height: 100%;
   width: 100%;
   background-color: rgb(235, 243, 243);
-  margin-top: 20px;
 }
 
 .title label {
@@ -99,6 +97,6 @@ export default {
 }
 
 .vditor {
-  height: 100%;
+  min-height: calc(100% - 45px);
 }
 </style>

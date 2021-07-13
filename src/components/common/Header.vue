@@ -43,7 +43,7 @@
         ></path>
       </svg>
       <div class="login">
-        <svg
+        <router-link to="/login"><svg
           class="icon"
           viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +59,7 @@
           <path
             d="M763.328 776.104L730.53 744.45a79.708 79.708 0 0 0 32.798 31.654"
           ></path>
-        </svg>
-        <router-link to="/login">登录</router-link>
+        </svg>登录</router-link>
       </div>
     </div>
   </header>

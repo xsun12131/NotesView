@@ -56,12 +56,13 @@ export default {
 };
 </script>
 <style scoped>
+@import "../../assets/css/markdown.css";
+
 .noteDetail {
   background: var(--background);
   border-radius: var(--radius-wrap);
   padding: 15px;
   box-shadow: var(--box-shadow);
-  margin-bottom: 15px;
 }
 
 .title {

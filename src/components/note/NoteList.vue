@@ -69,11 +69,4 @@ export default {
   background: var(--background);
   box-shadow: var(--box-shadow);
 }
-
-.noteList:first-child {
-  margin-top: 20px;
-}
-.noteList:last-child {
-  margin-bottom: 20px;
-}
 </style>

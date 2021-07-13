@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="w-100">
     <div class="container">
       <a href="https://beian.miit.gov.cn" target="_blank"
         >皖ICP备2021009320号</a
@@ -16,6 +16,8 @@ export default {
 footer {
   border-top: 1px solid var(--classB);
   color: var(--minor);
+  display: block;
+  bottom: 0%;
 }
 
 footer .container {

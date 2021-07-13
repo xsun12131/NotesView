@@ -11,11 +11,11 @@ export default {
 </script>
 <style scoped>
 .note {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   width: 100%;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 20px 15px;
 }
 
 @media (min-width: 576px) {
