@@ -1,7 +1,7 @@
 <template>
   <div class="note_card" @click="showNote(id)">
-    <a class="title">{{ title }}</a>
-    <a class="summary">{{ content }}</a>
+    <a class="title" v-html="title"></a>
+    <a class="summary" v-html="content">{{ content }}</a>
   </div>
 </template>
 <script>

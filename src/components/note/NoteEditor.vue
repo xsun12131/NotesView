@@ -5,7 +5,7 @@
             <input
                 class="input w-100"
                 v-model="title"
-                maxlength="16"
+                maxlength="50"
                 autocomplete="off"
                 placeholder="请输入标题..."
                 name="title"
@@ -13,6 +13,30 @@
             />
         </div>
         <div class="opeartion">
+            <div class="tag-items">
+                <label>标签</label>
+                <el-tag
+                    :key="tag"
+                    v-for="tag in dynamicTags"
+                    closable
+                    :disable-transitions="false"
+                    @close="handleClose(tag)"
+                >
+                    {{ tag }}
+                </el-tag>
+                <el-input
+                    class="input-new-tag"
+                    v-if="inputVisible"
+                    v-model="inputValue"
+                    ref="saveTagInput"
+                    size="small"
+                    @keyup.enter.native="handleInputConfirm"
+                    @blur="handleInputConfirm"
+                ></el-input>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput">
+                    + New Tag
+                </el-button>
+            </div>
             <button class="save" @click="saveNote()">保存</button>
         </div>
         <div id="vditor" class="vditor"></div>
@@ -37,6 +61,9 @@ export default {
             title: '',
             contentEditor: '',
             sendVal: false,
+            dynamicTags: [],
+            inputVisible: false,
+            inputValue: '',
         };
     },
     methods: {
@@ -45,6 +72,7 @@ export default {
             note.id = this.id;
             note.title = this.title;
             note.content = this.contentEditor.getValue();
+            note.tags = this.dynamicTags;
             save(note).then(data => {
                 this.id = data.id;
                 this.sendVal = true;
@@ -55,7 +83,27 @@ export default {
                 this.id = note.id;
                 this.title = note.title;
                 this.contentEditor.setValue(note.content);
+                this.dynamicTags = note.tags;
             });
+        },
+        handleClose(tag) {
+            this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+        },
+
+        showInput() {
+            this.inputVisible = true;
+            this.$nextTick(_ => {
+                this.$refs.saveTagInput.$refs.input.focus();
+            });
+        },
+
+        handleInputConfirm() {
+            let inputValue = this.inputValue;
+            if (inputValue) {
+                this.dynamicTags.push(inputValue);
+            }
+            this.inputVisible = false;
+            this.inputValue = '';
         },
     },
     mounted() {
@@ -91,7 +139,8 @@ export default {
     align-items: center;
     padding: 15px;
 }
-.title label {
+.title label,
+.opeartion label {
     width: 60px;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -114,13 +163,34 @@ export default {
     border-radius: 17px 0 0 17px;
 }
 .opeartion {
+    display: flex;
+    justify-content: space-between;
     height: 32px;
     padding: 0 15px;
     margin: 5px 0;
 }
+
+.tag-items label {
+    margin-right: 20px;
+}
+
+.el-tag + .el-tag {
+    margin-left: 10px;
+}
+.button-new-tag {
+    margin-left: 10px;
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.input-new-tag {
+    width: 90px;
+    margin-left: 10px;
+    vertical-align: bottom;
+}
+
 .save {
-    float: right;
-    right: 15px;
     border-radius: 3px;
     height: 32px;
     padding: 0 15px;
